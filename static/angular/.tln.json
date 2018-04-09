@@ -1,0 +1,37 @@
+{
+  "env": {
+  },
+  "stages":{
+    "prereq":{
+      "shell":[
+        "npm install"
+      ]
+    },
+    "build":{
+      "shell":[
+        "ng build"
+      ]
+    },
+    "test":{
+      "shell":[
+        "ng test --code-coverage"
+      ]
+    },
+    "lint":{
+      "shell":[
+        "ng lint --format=prose --type-check=true"
+      ]
+    },
+    "build-prod":{
+      "shell":[
+        "ng build --prod --env=prod"
+      ]
+    },
+    "serve":{
+      "shell":[
+        "export $(cat ./../../.env | grep -v ^# | xargs)",
+        "ng server --host=${STATIC_ANGULAR_LSTN} --port=${STATIC_ANGULAR_PORT}"
+      ]
+    }
+  }
+}

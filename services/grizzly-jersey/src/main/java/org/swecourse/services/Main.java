@@ -23,17 +23,21 @@ public class Main {
 
   // Base URI the Grizzly HTTP server will listen on
   public static final String BASE_URI;
+  public static final String LSTN_URI;
   private static final String PROTOCOL;
   private static final Optional < String > host;
+  private static final Optional < String > lstn;
   private static final Optional < String > port;
 
   //public static Integer i = new Integer(123);
   
   static {
     PROTOCOL = "http://";
-    host = Optional.ofNullable(System.getenv("SERVICES_GJ_HOSTNAME"));
+    host = Optional.ofNullable(System.getenv("SERVICES_GJ_HOST"));
+    lstn = Optional.ofNullable(System.getenv("SERVICES_GJ_LSTH"));
     port = Optional.ofNullable(System.getenv("SERVICES_GJ_PORT"));
     BASE_URI = PROTOCOL + host.orElse("localhost") + ":" + port.orElse("80") + "/";
+    LSTN_URI = PROTOCOL + lstn.orElse("0.0.0.0") + ":" + port.orElse("80");
     //String uname = "steve";
     //String password = "blue";
   }
@@ -43,15 +47,15 @@ public class Main {
    * @return Grizzly HTTP server.
    */
   public static HttpServer createServer() {
-    logger.info("Grizzly server URL " + BASE_URI);
+    logger.info("Grizzly server URL " + LSTN_URI);
     // create a resource config that scans for JAX-RS resources and providers
     // in com.secourse package
     final ResourceConfig rc = new ResourceConfig().packages("org.swecourse.services");
     rc.register(GensonJsonConverter.class);
 
     // create and start a new instance of grizzly http server
-    // exposing the Jersey application at BASE_URI
-    return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
+    // exposing the Jersey application at LSTN_URI
+    return GrizzlyHttpServerFactory.createHttpServer(URI.create(LSTN_URI), rc);
   }
 
   /**
@@ -61,7 +65,7 @@ public class Main {
    */
   public static void main(String[] args) throws IOException {
     //
-    logger.info("Initiliazing Grizzly server using " + BASE_URI);
+    logger.info("Initiliazing Grizzly server using " + LSTN_URI);
     CountDownLatch exitEvent = new CountDownLatch(1);
     HttpServer server = createServer();
     // register shutdown hook

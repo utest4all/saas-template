@@ -3,7 +3,7 @@
   },
   "stages":{
     "prereq":{
-      "script":[
+      "shell":[
         "sudo /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/project-talan/talan-core/latest/install.sh)\"",
         "sudo tln install java,docker,docker-compose,maven,nodejs"
       ]
@@ -18,7 +18,7 @@
           "inherits":["java/maven"],
           "stages":{
             "build":{},
-            "exec":{}
+            "serve":{}
           }
         }
       ]
@@ -30,13 +30,9 @@
           "id":"web",
           "inherits":["angular"],
           "stages":{
-            "install":{
-              "command":"npm install"
-            },
+            "prereq":{},
             "build":{},
-            "serve":{
-              "command":"ng serve --host 0.0.0.0 --port 4201"
-            }
+            "serve":{}
           }
         }
       ]
