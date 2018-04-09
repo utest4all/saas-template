@@ -4,6 +4,7 @@ echo "[+] Building ..."
 
 echo " | [+] Static ..."
 pushd static/angular
+./prereq.sh
 ./build.sh
 popd
 echo " | [-] Static"
