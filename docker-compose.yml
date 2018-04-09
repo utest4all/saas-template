@@ -9,21 +9,22 @@ services:
       context: ./services/grizzly-jersey
       args:
         - SERVICES_GJ_ARTIFACT
-        - SERVICES_GJ_HOSTNAME
+        - SERVICES_GJ_HOST
+        - SERVICES_GJ_LSTN
         - SERVICES_GJ_PORT
     image: ${COMPOSE_PROJECT_NAME}-grizzly-jersey
     networks:
       - saas-template-network
     ports:
       - $SERVICES_GJ_PORT:$SERVICES_GJ_PORT
-  angular-nodejs:
+  angular:
     build:
-      context: ./static/angular-nodejs
+      context: ./static/angular
       args:
-        - STATIC_ANJS_HOSTNAME
-        - STATIC_ANJS_PORT
-    image: ${COMPOSE_PROJECT_NAME}-angular-nodejs
+        - STATIC_ANGULAR_HOST
+        - STATIC_ANGULAR_PORT
+    image: ${COMPOSE_PROJECT_NAME}-angular
     networks:
       - saas-template-network
     ports:
-      - $STATIC_ANJS_PORT:$STATIC_ANJS_PORT
+      - $STATIC_ANGULAR_PORT:80
