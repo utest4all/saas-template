@@ -3,7 +3,7 @@
 echo "[+] Building ..."
 
 echo " | [+] Static ..."
-pushd static/angular-nodejs
+pushd static/angular
 ./build.sh
 popd
 echo " | [-] Static"
