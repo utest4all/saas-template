@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#test
 export $(cat ./.env | grep -v ^# | xargs)
 
 GROUP_ID=$1 #com.swecourse.services
